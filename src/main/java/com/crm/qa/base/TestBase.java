@@ -6,9 +6,16 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.crm.qa.util.TestUtil;
 
@@ -43,6 +50,17 @@ public class TestBase {
 		driver.manage().timeouts().pageLoadTimeout(TestUtil.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
 		driver.manage().timeouts().implicitlyWait(TestUtil.IMPLICIT_WAIT, TimeUnit.SECONDS);
 		driver.get(prop.getProperty("url"));
-
+		driver.findElement(By.name("username")).sendKeys(prop.getProperty("username"));
+		driver.findElement(By.name("password")).sendKeys(prop.getProperty("password"));
+		WebDriverWait wait = new WebDriverWait(driver,3);
+		/*Method1
+		boolean invisible = wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("preloader")));
+		if(invisible) {
+			WebElement loginButton = driver.findElement(By.xpath("//input[@type='submit']"));
+			loginButton.click();
+		}*/
+		JavascriptExecutor js =(JavascriptExecutor) driver;
+		WebElement loginButton = driver.findElement(By.xpath("//input[@type='submit']"));
+		js.executeScript("arguments[0].click();",loginButton);
 	}
 }

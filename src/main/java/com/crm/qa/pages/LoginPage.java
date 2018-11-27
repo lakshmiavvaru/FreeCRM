@@ -19,7 +19,7 @@ public class LoginPage extends TestBase
 	WebElement username;
 	@FindBy(name = "password")
 	WebElement password;
-	@FindBy(xpath = "//div[@class='input-group-btn']/input")
+	@FindBy(xpath = "//input[@type='submit']")
 	WebElement Loginbtn;
 	@FindBy(xpath = "//img[@alt='free crm logo']")
 	WebElement crmLogo;
